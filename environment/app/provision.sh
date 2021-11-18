@@ -1,28 +1,37 @@
 #!/bin/bash
-
-# Update the sources list
+# Updates and Upgrades the system
 sudo apt-get update -y
-
-# upgrade any packages available
 sudo apt-get upgrade -y
 
-
-# install git
-sudo apt-get install git -y
-
-# install nodejs
+#Installs Nginx, Nodejs and python properties
+sudo apt-get install nginx -y
+sudo apt-get install nodejs -y
 sudo apt-get install python-software-properties -y
+
+#Finds a specific verison of Nodejs and installs it again and with pm2
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install nodejs -y
-
-# install pm2
 sudo npm install pm2 -g
 
-sudo apt-get install nginx -y
+#Creates a environment variable and stores in .bashrc file
+sudo echo 'export DB_HOST="mongodb://192.168.10.150:27017/posts"' >> .bashrc
+source ~/.bashrc
 
-# remove the old file and add our one
-sudo rm /etc/nginx/sites-available/default
-sudo cp /home/ubuntu/environment/nginx.default /etc/nginx/sites-available/default
+#Removes nginx default file and replaces with own default file from home dir
+sudo rm -rf /etc/nginx/sites-available/default
+sudo ln -s /home/ubuntu/bootcamp-jenkinscicd/default /etc/nginx/sites-available/
 
-# finally, restart the nginx service so the new config takes hold
-sudo service nginx restart
+#Restarts Nginx
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+
+# Node seeds app for database
+#node app/app/seeds/seed.js
+#cd /home/vagrant/app/app
+
+#Intsalls npm and dependencies and does another node seed
+#sudo npm install
+#sudo npm install express
+#node seeds/seed.js
+
+#I have 2 node seeds because I am unsure which on works and which doesn't.
