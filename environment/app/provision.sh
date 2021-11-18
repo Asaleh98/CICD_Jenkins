@@ -19,7 +19,7 @@ source ~/.bashrc
 
 #Removes nginx default file and replaces with own default file from home dir
 sudo rm -rf /etc/nginx/sites-available/default
-sudo ln -s /home/ubuntu/bootcamp-jenkinscicd/default /etc/nginx/sites-available/
+sudo ln -s /home/ubuntu/CICD_Jenkins/default /etc/nginx/sites-available/
 
 #Restarts Nginx
 sudo systemctl restart nginx
